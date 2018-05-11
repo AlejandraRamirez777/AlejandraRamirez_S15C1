@@ -13,6 +13,8 @@
 
 using namespace std;
 
+double minima(double xx, double yy, double *tx, double *ty);
+
 int main () {
 
     //info inputs
@@ -97,29 +99,6 @@ int main () {
 
    for(int k=0; k<N; k++){
 
-
-       double r[numL];
-       double  *rp;
-       rp = r;      
-
-       for(int i=0; i<numL; i++){
-
-           double rr = ((cenx-tp[i])*(cenx-tp[i]) + (ceny - ftp[i])*(ceny- ftp[i]));
-           r[i] = rr;
-           //cout << r[i]<< endl;
-
-          
-       }
-
-      double min = 100000000;
-
-      for(int h=0; h<numL; h++){
-         double ac = r[h];
-         if(ac<min){
-	     min = ac;
-         }
-      }
-
       //Num aleatorio entre -0.05 y 0.05
        double paso_Al = (1/10.0)*((a)-0.5);
 
@@ -129,32 +108,9 @@ int main () {
        double x_primeX = x_walkX[k] + paso_Al;
        double x_primeY = x_walkY[k] + paso_Al;
        
+       double mpp = minima(x_primeX, x_primeY);
 
-       //cout << x_prime << " " << x_walk[k] << endl;
-
-       double r2[numL];
-       double  *r2p;
-       r2p = r2;      
-
-
-       for(int i=0; i<numL; i++){
-
-           double rr2 = ((x_primeX-tp[i])*(x_primeX-tp[i]) + (x_primeY - ftp[i])*(x_primeY- ftp[i]));
-           r2[i] = rr2;
-           //cout << r[i]<< endl;
- 
-       }
-
-       double min2 = 100000000;
-
-      for(int h=0; h<numL; h++){
-         double ac2 = r2[h];
-         if(ac2<min2){
-	     min2 = ac2;
-         }
-      }
-
-       double alpha = min2/min;
+       double alpha = mpp/minima(x_primeX[k],x_primeY[k]);
        //cout << alpha << endl;
 
        if(alpha >= 1.0){
@@ -188,27 +144,29 @@ int main () {
    return 0;
 }
 
-double fou(double *unP1, double *unP1, int N){
+double minima(double xx, double yy, double *tx, double *ty){
 
-       double rrr[numL];
-       double  *rrrp;
-       rrrp = rrr;      
+       double radios[numL];
+       double  *radiosp;
+       radiosp = radios;      
 
 
        for(int i=0; i<numL; i++){
 
-           double rrr = ((x_primeX-tp[i])*(x_primeX-tp[i]) + (x_primeY - ftp[i])*(x_primeY- ftp[i]));
-           r2[i] = rr2;
+           double radios = ((xx-tp[i])*(xx-tp[i]) + (yy - ftp[i])*(yy- ftp[i]));
+           radios[i] = radios;
            //cout << r[i]<< endl;
  
        }
 
-       double min2 = 100000000;
+       double mini = 100000000;
 
       for(int h=0; h<numL; h++){
-         double ac2 = r2[h];
-         if(ac2<min2){
-	     min2 = ac2;
+         double act = radios[h];
+         if(act<mini){
+	     mini = act;
          }
       }
+
+return mini;
 }
