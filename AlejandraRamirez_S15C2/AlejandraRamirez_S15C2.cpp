@@ -13,7 +13,7 @@
 
 using namespace std;
 
-double minima(double xx, double yy, double *tx, double *ty);
+double minima(double xx, double yy, double *tx, double *ty, int nn);
 
 int main () {
 
@@ -108,9 +108,9 @@ int main () {
        double x_primeX = x_walkX[k] + paso_Al;
        double x_primeY = x_walkY[k] + paso_Al;
        
-       double mpp = minima(x_primeX, x_primeY);
+       double mpp = minima(x_primeX, x_primeY,t,ft,numL);
 
-       double alpha = mpp/minima(x_primeX[k],x_primeY[k]);
+       double alpha = mpp/minima(x_walkX[k],x_walkY[k],t,ft,numL);
        //cout << alpha << endl;
 
        if(alpha >= 1.0){
@@ -144,24 +144,24 @@ int main () {
    return 0;
 }
 
-double minima(double xx, double yy, double *tx, double *ty){
+double minima(double xx, double yy, double *tx, double *ty, int nn){
 
-       double radios[numL];
+       double radios[nn];
        double  *radiosp;
        radiosp = radios;      
 
 
-       for(int i=0; i<numL; i++){
+       for(int i=0; i<nn; i++){
 
-           double radios = ((xx-tp[i])*(xx-tp[i]) + (yy - ftp[i])*(yy- ftp[i]));
-           radios[i] = radios;
+           double r = ((xx-tx[i])*(xx-tx[i]) + (yy - ty[i])*(yy- ty[i]));
+           radios[i] = r;
            //cout << r[i]<< endl;
  
        }
 
        double mini = 100000000;
 
-      for(int h=0; h<numL; h++){
+      for(int h=0; h<nn; h++){
          double act = radios[h];
          if(act<mini){
 	     mini = act;
