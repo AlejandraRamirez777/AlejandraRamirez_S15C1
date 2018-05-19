@@ -21,7 +21,7 @@ int main () {
 
     //num lineas
     int numL = 0;
-    
+
     //LEER EL TXT
     ifstream inl;
 
@@ -87,10 +87,11 @@ int main () {
     double a = (double) rand() / (RAND_MAX);
 
     //Num aleatorio entre -15 y 15 --> x
-    double cenx = 30.0*((a)-0.5);
+    double cenx = 32*((a)+0.5) ;
+    //cout << cenx << endl;
 
     //Num aleatorio entre -15 y 15 --> y
-    double ceny = 30.0*((a)-0.5);
+    double ceny = 10.0*((a)+0.5);
 
     x_walkX.push_back(cenx);
     x_walkY.push_back(ceny);
@@ -99,24 +100,27 @@ int main () {
 
    for(int k=0; k<N; k++){
 
-      //Num aleatorio entre -0.05 y 0.05
-       double paso_Al = (1/10.0)*((a)-0.5);
+     double aa = (double) rand() / (RAND_MAX);
+
+       //Num aleatorio entre -0.05 y 0.05
+       double paso_Al = (1/42.5)*((aa)-0.5);
 
        //cout << paso_Al << endl;
 
        //Initial guess + paso aletario
        double x_primeX = x_walkX[k] + paso_Al;
        double x_primeY = x_walkY[k] + paso_Al;
-       
+
+       //Retorna el numero minimo
        double mpp = minima(x_primeX, x_primeY,t,ft,numL);
 
        double alpha = mpp/minima(x_walkX[k],x_walkY[k],t,ft,numL);
        //cout << alpha << endl;
 
        if(alpha >= 1.0){
-         //cout << x_prime << endl;
+           //cout << x_prime << endl;
            x_walkX.push_back(x_primeX);
-   	   x_walkY.push_back(x_primeY);
+   	       x_walkY.push_back(x_primeY);
        }
        else{
            //Num aleatorio entre 0 y 1
@@ -124,7 +128,7 @@ int main () {
            //cout <<beta << endl;
            if(beta <= alpha){
                x_walkX.push_back(x_primeX);
-   	       x_walkY.push_back(x_primeY);
+   	           x_walkY.push_back(x_primeY);
                //cout << x_prime << endl;
            }
            else{
@@ -134,38 +138,43 @@ int main () {
                //cout << x_walk[k] << endl;
            }
        }
-
-
    }
 
 //--------------------
 
+for(int k=0; k<N; k++){
+   cout << x_walkX[k] -1  << " " << x_walkY[k] -1 << " " << minima(x_walkX[k],x_walkY[k],t,ft,numL) << endl;
+}
 
    return 0;
 }
 
+//Retorna el radio -distancia- minimo de los generados a partir de punto (xx,yy)
+// y todos los punto del archivo txt (tx,ty). nn -> size del array de datos del txt
 double minima(double xx, double yy, double *tx, double *ty, int nn){
 
+       //Inicializar arrays con sus pointers donde se guardaran los radios
        double radios[nn];
        double  *radiosp;
-       radiosp = radios;      
+       radiosp = radios;
 
-
-       for(int i=0; i<nn; i++){
-
-           double r = ((xx-tx[i])*(xx-tx[i]) + (yy - ty[i])*(yy- ty[i]));
+       //Se genera un array lleno de los radios -distancias- generados a partir del punto
+       // inicial (xx,yy) y todos los punto del archivo txt (tx,ty)
+       for(int i=0; i<nn+2; i++){
+           double r = (((xx-tx[i])*(xx-tx[i])) + ((yy - ty[i])*(yy- ty[i])));
            radios[i] = r;
-           //cout << r[i]<< endl;
- 
+           //cout << radios[i]<< endl;
        }
 
-       double mini = 100000000;
+      //Numero muy alto para comparacion inicial
+      double mini = 100000000;
 
-      for(int h=0; h<nn; h++){
-         double act = radios[h];
-         if(act<mini){
-	     mini = act;
-         }
+      //Se asigna a mini el valor minimo del array radios
+      for(int h=0; h<nn+2; h++){
+          double act = radios[h];
+          if(act<mini){
+	            mini = act;
+          }
       }
 
 return mini;
