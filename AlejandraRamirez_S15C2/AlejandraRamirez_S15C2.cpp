@@ -85,13 +85,18 @@ int main () {
 
    //Num aleatorio entre 0 y 1
     double a = (double) rand() / (RAND_MAX);
+    double b = (double) rand() / (RAND_MAX);
 
     //Num aleatorio entre -15 y 15 --> x
-    double cenx = 32*((a)+0.5) ;
+    //double cenx = 32*((a)+0.5) ;
+    //double cenx = 7.0 ;
+    double cenx = 10.0*((a)+0.5) ;
     //cout << cenx << endl;
 
     //Num aleatorio entre -15 y 15 --> y
-    double ceny = 10.0*((a)+0.5);
+    //double ceny = 10.0*((a)+0.5);
+    //double ceny = 7.0;
+    double ceny = 10.0*((b)+0.5) ;
 
     x_walkX.push_back(cenx);
     x_walkY.push_back(ceny);
@@ -103,7 +108,8 @@ int main () {
      double aa = (double) rand() / (RAND_MAX);
 
        //Num aleatorio entre -0.05 y 0.05
-       double paso_Al = (1/42.5)*((aa)-0.5);
+       //double paso_Al = (1/42.5)*((aa)-0.5);
+       double paso_Al = (1/10.0)*((aa)-0.5);
 
        //cout << paso_Al << endl;
 
@@ -143,9 +149,8 @@ int main () {
 //--------------------
 
 for(int k=0; k<N; k++){
-   cout << x_walkX[k] -1  << " " << x_walkY[k] -1 << " " << minima(x_walkX[k],x_walkY[k],t,ft,numL) << endl;
+   cout << k << " " <<x_walkX[k]  << " " << x_walkY[k] << " " << sqrt(minima(x_walkX[k],x_walkY[k],t,ft,numL)) << endl;
 }
-
    return 0;
 }
 
